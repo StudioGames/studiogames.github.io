@@ -1,0 +1,58 @@
+<div id="grid"></div>
+<script>
+numbers = new Array();
+generate = '';
+for(c=0; c<5; c++){
+  generate += '<div class="column">';
+  for(i=0; i<5; i++){
+    setRandomNumber();
+  }
+  generate += '</div>';
+}
+document.getElementById('grid').innerHTML = generate;
+function setRandomNumber(){
+    number = Math.floor(Math.random() * 75) + 1;
+    if(numbers.includes(number)) return setRandomNumber();
+    generate += '<div class="number" onclick="check(this);"><span>'+number+'</span></div>';
+    numbers.push(number);
+}
+function check(t){
+  t.classList.toggle('checked');
+}
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+var elHead = document.getElementsByTagName('head')[0];
+elStyle = document.createElement('style')
+elStyle.type= 'text/css';
+elStyle.innerHTML = '.checked span {border-radius: 50%;padding: 10px;background: #fff;border: 3px solid '+getRandomColor()+';text-align: center;}'; 
+elHead.appendChild( elStyle );
+</script>
+<style>
+#grid {
+  float: left;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.column {
+  float: left;
+  width: 100px;
+  text-align: center;
+}
+.number {
+  cursor: pointer;
+  padding: 20px 0;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+.number span {
+  color: #000;
+  font-size: 32px;
+}
+</style>
