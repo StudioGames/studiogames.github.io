@@ -5,12 +5,20 @@
 function pick(){
   n = document.getElementById('number');
   h = document.getElementById('history');
-  if(!isNaN(n.innerHTML))
+  if(n.getAttribute('data-number') != ''){
+    if(h.innerHTML.split(' ').includes(n.getAttribute('data-number'))) return false;
     h.innerHTML = n.getAttribute('data-number')+' '+h.innerHTML;
-  n.setAttribute('data-number', (Math.floor(Math.random() * 75) + 1));
+  }
+  setRandomNumber();
   n.style = 'background-color: '+getRandomColor();
   document.getElementById('player').currentTime = 0;
   document.getElementById('player').play();
+}
+function setRandomNumber(){
+  number = (Math.floor(Math.random() * 75) + 1);
+  if(h.innerHTML.split(' ').includes(number.toString()))
+    setRandomNumber();
+    else n.setAttribute('data-number', number);
 }
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
